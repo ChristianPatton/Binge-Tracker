@@ -1,5 +1,7 @@
 import * as React from "react";
 import SeriesList from './components/SeriesList';
+import SeriesRoute from './routes/SeriesInfo'
+import { BrowserRouter as Router, Switch, Route}  from "react-router-dom";
 import './App.css';
 
 function App() {
@@ -9,19 +11,17 @@ function App() {
 
   const getSeriesInfo = (searchKeywords: string) => {
     if(searchKeywords) {
-      fetch("https://" + process.env.REACT_APP_RAPID_API_HOST + "/?s=" + searchKeywords, {
+      fetch(process.env.REACT_APP_API_HOST + "/3/search/tv?api_key="
+           + process.env.REACT_APP_API_KEY +  "&query=" + searchKeywords, {
           "method": "GET",
-          "headers": {
-              "x-rapidapi-host": process.env.REACT_APP_RAPID_API_HOST!,
-              "x-rapidapi-key": process.env.REACT_APP_RAPID_API_KEY!
-          }
       })
       .then(response => response.json())
       .then(results => {
-        results = results.Search
+        results = results.results
+        setSeries([])
         for(let i = 0; i < results.length; i++) {
           let data = results[i]
-          setSeries((series: any) => [...series, {imdbID: data.imdbID, title: data.Title, posterImg: data.Poster !== "N/A" ? data.Poster : undefined}])
+          setSeries((series: any) => [...series, {id: data.id, title: data.name, overview: data.overview, posterImg: data.poster_path !== null ? data.poster_path : undefined}])
         }
         console.log(series)
       })
@@ -42,14 +42,21 @@ function App() {
     }
 
   return (
-    <div className="container">
-      <div>
-        <h1 id="heading">Binge Tracker</h1>
-        <input id="search-bar" type="text" onChange={updateVal} placeholder="Search Title" />
-        <button onClick={onSearch}>Search</button>
-        <SeriesList seriesData={series}/>
-      </div>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact>
+          <div className="container">
+              <h1 id="heading">Binge Tracker</h1>
+              <div className="content">
+                <input id="search-bar" type="text" onChange={updateVal} placeholder="Search Title" />
+                <button onClick={onSearch}>Search</button>
+              </div>
+              <SeriesList seriesData={series}/>
+          </div>
+        </Route>
+        <Route path="/series/:id" component={SeriesRoute}/>
+      </Switch>
+    </Router>
   );
 }
 

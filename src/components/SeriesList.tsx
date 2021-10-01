@@ -4,7 +4,7 @@ import Series from './Series';
 export default function SeriesList({seriesData}: any) {
     return (
         <div>
-            <ul>
+            <ul className="seriesList">
                 {seriesData.map((series: any) => {
                     return <Series key={series.imdbID} data={series}/>
                 })}

@@ -11,16 +11,68 @@ body {
   flex-wrap: wrap;
 }
 #heading {
+  font-family: 'Montserrat', sans-serif;
   font-size: 42px;
   color: white;
+  text-align: center;
 }
-
+a {
+  text-decoration: none;
+}
 /* Series */
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  height: 3em;
+} 
+.seriesList {
+  list-style: none;
+}
 .series-box {
   display: flex;
   background-color: #222;
-  height: 10em;
   margin-bottom: 1em;
+  color: grey;
+}
+
+.unavaliable-txt {
+  text-align: center;
+  padding: 1em;
+  font-size: 42px;
+}
+
+.series-box div p {
+  padding-left: 1em;
+}
+
+.bingeTime-listing-title {
+  padding-left: 1em;
+}
+
+.bingeTime {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.bingeTime-title {
+  padding-left: 1em;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+.bingeTime-elem {
+  display: flex;
+  color: white;
+  padding: 0em 1em 0em 1em;
+  font-size: 48px;
+  justify-content: center;
+  align-items: center;
+}
+.bingeTime-elem-text {
+  margin-right: 0.25em;
 }
 
 h3 {
@@ -29,10 +81,13 @@ h3 {
 
 input {
   width: 30em;
-  height: 3em;
 }
 
 button {
-  height: 3em;
+  height: 100%;
+  background-color: #0087bd;
+  color: white;
+  border: 0;
+  cursor: pointer;
 }
 
